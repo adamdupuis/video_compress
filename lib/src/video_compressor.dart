@@ -48,7 +48,7 @@ class VideoCompress {
           ? await _channel.invokeMethod(name, params)
           : await _channel.invokeMethod(name);
     } on PlatformException catch (e) {
-      debugPrint('''Error from VideoCompress: 
+      debugPrint('''Error from VideoCompress:
       Method: $name
       $e''');
     }
@@ -137,15 +137,18 @@ class VideoCompress {
   }) async {
     assert(path != null);
     if (_isCompressing) {
-      throw StateError('''VideoCompress Error: 
+      throw StateError('''VideoCompress Error:
       Method: compressVideo
       Already have a compression process, you need to wait for the process to finish or stop it''');
     }
     _isCompressing = true;
     if (compressProgress$.notSubscribed) {
-      debugPrint('''VideoCompress: You can try to subscribe to the 
+      debugPrint('''VideoCompress: You can try to subscribe to the
       compressProgress\$ stream to know the compressing state.''');
     }
+    debugPrint('''VideoCompress: path: $path''');
+
+
     final jsonStr = await _invoke<String>('compressVideo', {
       'path': path,
       'quality': quality.index,
